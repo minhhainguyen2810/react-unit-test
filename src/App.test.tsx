@@ -33,3 +33,48 @@ test("click button will increment counter display", () => {
   const countComponent = findByTestAttr(wrapper, "count");
   expect(countComponent.text()).toBe("1");
 });
+test("it should render decrement button", () => {
+  const wrapper = shallow(<App />);
+  const decrementButton = findByTestAttr(wrapper, "decrement-button");
+
+  expect(decrementButton.length).toBe(1);
+});
+test("it should decrement the counter", () => {
+  const wrapper = shallow(<App />);
+
+  const incrementButton = findByTestAttr(wrapper, "increment-button");
+  incrementButton.simulate("click");
+
+  const decrementButton = findByTestAttr(wrapper, "decrement-button");
+  decrementButton.simulate("click");
+
+  const countComponent = findByTestAttr(wrapper, "count");
+  expect(countComponent.text()).toBe("0");
+});
+// test("it should show the error when decrease the counter when count = 0", () => {
+//   const wrapper = shallow(<App />);
+
+//   const decrementButton = findByTestAttr(wrapper, "decrement-button");
+//   decrementButton.simulate("click");
+
+//   const countComponent = findByTestAttr(wrapper, "error-message");
+//   expect(countComponent.length).toBe(1);
+// });
+test("it should not less than zero", () => {
+  const wrapper = shallow(<App />);
+
+  const decrementButton = findByTestAttr(wrapper, "decrement-button");
+  decrementButton.simulate("click");
+
+  const countComponent = findByTestAttr(wrapper, "count");
+  expect(countComponent.text()).toBe("0");
+});
+test("it should clear the error", () => {
+  const wrapper = shallow(<App />);
+
+  const decrementButton = findByTestAttr(wrapper, "increment-button");
+  decrementButton.simulate("click");
+
+  const countComponent = findByTestAttr(wrapper, "error-message");
+  expect(countComponent.length).toBe(0);
+});
